@@ -41,7 +41,15 @@ const logs = [
   }
 ];
 
-export const story1 = () =>
+export const allLevels = () =>
   html`
     <custom-element .logs=${logs}></custom-element>
+  `;
+
+export const onlyError = () =>
+  html`
+    <custom-element
+      .logs=${logs}
+      .levels=${new Set(["error"])}
+    ></custom-element>
   `;

@@ -4,11 +4,27 @@ import JSONElement from "@webcomponents-dev/json-element";
 
 customElements.define("json-details", JSONElement);
 
+enum Level {
+  "error",
+  "warn",
+  "info",
+  "debug",
+  "log"
+}
 export default class Console extends LitElement {
   @property() logs: any[] = [];
+  @property() levels: Set<any> = new Set(Object.keys(Level));
 
   public pushLog(method: string, ...args: any[]) {
     this.logs.push({ method, args });
+  }
+
+  public toggleLevel(level: string) {
+    if (this.levels.has(level)) {
+      this.levels.delete(level);
+    } else {
+      this.levels.add(level);
+    }
   }
 
   static get styles() {
@@ -92,7 +108,9 @@ export default class Console extends LitElement {
   render() {
     return html`
       <div class="logs">
-        ${this.logs.map(line => this.logLine(line))}
+        ${this.logs
+          .filter(line => this.levels.has(line.method))
+          .map(line => this.logLine(line))}
       </div>
     `;
   }
