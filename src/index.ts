@@ -26,6 +26,7 @@ export default class Console extends LitElement {
     } else {
       this.levels.add(level);
     }
+    this.requestUpdate();
   }
 
   static get styles() {
@@ -78,6 +79,7 @@ export default class Console extends LitElement {
         color: rgb(235, 0, 14);
       }
       .logArgs {
+        margin: 0px;
         margin-left: 2px;
       }
     `;
