@@ -12,11 +12,12 @@ enum Level {
   "log"
 }
 export default class Console extends LitElement {
-  @property() logs: any[] = [];
-  @property() levels: Set<any> = new Set(Object.keys(Level));
+  @property({ type: Array }) logs = [];
+  @property({ type: Set }) levels = new Set(Object.keys(Level));
 
-  public pushLog(method: string, ...args: any[]) {
+  public pushLog(method: string, ...args: any) {
     this.logs.push({ method, args });
+    this.requestUpdate();
   }
 
   public toggleLevel(level: string) {

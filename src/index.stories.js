@@ -22,11 +22,7 @@ const logs = [
   },
   {
     method: "warn",
-    args: [
-      {
-        bool: true
-      }
-    ]
+    args: [true]
   },
   {
     method: "info",
@@ -44,6 +40,11 @@ const logs = [
 export const allLevels = () =>
   html`
     <custom-element .logs=${logs}></custom-element>
+  `;
+
+export const empty = () =>
+  html`
+    <custom-element></custom-element>
   `;
 
 export const onlyError = () =>
