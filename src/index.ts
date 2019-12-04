@@ -23,7 +23,12 @@ export default class Console extends LitElement {
     } else {
       this.logs.push({ method, args });
     }
-    this.requestUpdate();
+    this.requestUpdate().then(() => this.scrollDown());
+  }
+
+  private scrollDown(): void {
+    const consoleList = this.shadowRoot.getElementById("console-list");
+    consoleList.scrollTop = consoleList.scrollHeight;
   }
 
   public toggleLevel(level: string) {
@@ -119,7 +124,7 @@ export default class Console extends LitElement {
 
   render() {
     return html`
-      <div class="logs">
+      <div id="console-list" class="logs">
         ${this.logs
           .filter(line => this.levels.has(line.method))
           .map(line => this.logLine(line))}
