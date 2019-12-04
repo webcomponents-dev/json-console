@@ -23,13 +23,18 @@ export default class Console extends LitElement {
     } else {
       this.logs.push({ method, args });
     }
-    this.requestUpdate().then(() => this.scrollDown());
+
+    const consoleList = this.shadowRoot.getElementById("console-list");
+    const alreadyAtBottom = consoleList.scrollTop <= consoleList.scrollHeight;
+
+    this.requestUpdate().then(() => {
+      if (alreadyAtBottom) {
+        consoleList.scrollTop = consoleList.scrollHeight;
+      }
+    });
   }
 
-  private scrollDown(): void {
-    const consoleList = this.shadowRoot.getElementById("console-list");
-    consoleList.scrollTop = consoleList.scrollHeight;
-  }
+  private scrollDown(): void {}
 
   public toggleLevel(level: string) {
     if (this.levels.has(level)) {
