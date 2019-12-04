@@ -54,3 +54,20 @@ export const onlyError = () =>
       .levels=${new Set(["error"])}
     ></custom-element>
   `;
+
+const clearLogs = [
+  {
+    method: "warning",
+    args: ["before"]
+  },
+  { method: "clear", args: ["Console was cleared"] },
+  {
+    method: "info",
+    args: ["after"]
+  }
+];
+
+export const clear = () =>
+  html`
+    <custom-element .logs=${clearLogs}></custom-element>
+  `;

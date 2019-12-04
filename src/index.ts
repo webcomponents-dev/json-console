@@ -9,14 +9,20 @@ enum Level {
   "warn",
   "info",
   "debug",
-  "log"
+  "log",
+  "clear"
 }
 export default class Console extends LitElement {
   @property({ type: Array }) logs = [];
   @property({ type: Set }) levels = new Set(Object.keys(Level));
 
   public pushLog(method: string, ...args: any) {
-    this.logs.push({ method, args });
+    if (method === "clear") {
+      this.logs = [];
+      this.logs.push({ method, args: ["Console was cleared"] });
+    } else {
+      this.logs.push({ method, args });
+    }
     this.requestUpdate();
   }
 
@@ -44,6 +50,9 @@ export default class Console extends LitElement {
         border-top: 1px solid lightgray;
         display: flex;
         flex-wrap: wrap;
+      }
+      .logLine.clear {
+        color: grey;
       }
       .logLine:before {
         // TODO

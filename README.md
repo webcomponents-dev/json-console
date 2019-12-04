@@ -3,7 +3,7 @@
 # JSON Console
 
 ```showcase
-  <custom-element .logs={[
+  <custom-element .logs=${[
   {
     method: "error",
     args: [
